@@ -109,14 +109,14 @@ const VisitsView: React.FC = () => {
         />
       </div>
 
-      {/* Filter Buttons */}
+      {/* Filter Buttons - Primary Style */}
       <div className="flex gap-2 overflow-x-auto pb-2">
         <button
           onClick={() => setFilterStatus('all')}
           className={`px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all ${
             filterStatus === 'all'
-              ? 'lmnt-theme-secondary-bg lmnt-theme-on-secondary'
-              : 'lmnt-theme-background-bg lmnt-theme-on-surface border lmnt-theme-divider-primary'
+              ? 'bg-gradient-to-r from-bayer-secondary-500 to-bayer-secondary-600 text-white shadow-lg'
+              : 'lmnt-theme-background-bg lmnt-theme-on-surface border-2 lmnt-theme-divider-primary hover:border-bayer-secondary-400'
           }`}
         >
           All ({doctors.length})
@@ -125,8 +125,8 @@ const VisitsView: React.FC = () => {
           onClick={() => setFilterStatus('active')}
           className={`px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all ${
             filterStatus === 'active'
-              ? 'lmnt-theme-success-bg lmnt-theme-on-success'
-              : 'lmnt-theme-background-bg lmnt-theme-on-surface border lmnt-theme-divider-primary'
+              ? 'bg-gradient-to-r from-teal-400 to-cyan-500 text-white shadow-lg'
+              : 'lmnt-theme-background-bg lmnt-theme-on-surface border-2 lmnt-theme-divider-primary hover:border-bayer-secondary-400'
           }`}
         >
           Active ({doctors.filter(d => d.status === 'active').length})
@@ -135,8 +135,8 @@ const VisitsView: React.FC = () => {
           onClick={() => setFilterStatus('pending')}
           className={`px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all ${
             filterStatus === 'pending'
-              ? 'lmnt-theme-secondary-variant-bg lmnt-theme-on-secondary'
-              : 'lmnt-theme-background-bg lmnt-theme-on-surface border lmnt-theme-divider-primary'
+              ? 'bg-gradient-to-r from-bayer-secondary-400 to-bayer-secondary-500 text-white shadow-lg'
+              : 'lmnt-theme-background-bg lmnt-theme-on-surface border-2 lmnt-theme-divider-primary hover:border-bayer-secondary-400'
           }`}
         >
           Pending ({doctors.filter(d => d.status === 'pending').length})
@@ -145,8 +145,8 @@ const VisitsView: React.FC = () => {
           onClick={() => setFilterStatus('inactive')}
           className={`px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all ${
             filterStatus === 'inactive'
-              ? 'lmnt-theme-surface-variant-bg lmnt-theme-on-surface'
-              : 'lmnt-theme-background-bg lmnt-theme-on-surface border lmnt-theme-divider-primary'
+              ? 'lmnt-theme-surface-variant-bg lmnt-theme-on-surface shadow-lg'
+              : 'lmnt-theme-background-bg lmnt-theme-on-surface border-2 lmnt-theme-divider-primary hover:border-bayer-secondary-400'
           }`}
         >
           Inactive ({doctors.filter(d => d.status === 'inactive').length})
@@ -195,10 +195,10 @@ const VisitsView: React.FC = () => {
             </div>
 
             <div className="flex gap-2">
-              <button className="flex-1 lmnt-theme-secondary-bg lmnt-theme-on-secondary py-2 rounded-lg text-sm font-semibold hover:shadow-md transition-shadow">
+              <button className="flex-1 bg-gradient-to-r from-bayer-secondary-500 to-bayer-secondary-600 text-white py-2 rounded-lg text-sm font-semibold hover:shadow-md transition-all hover:from-bayer-secondary-600 hover:to-bayer-secondary-700">
                 Schedule Visit
               </button>
-              <button className="flex-1 lmnt-theme-background-bg lmnt-theme-on-surface py-2 rounded-lg text-sm border lmnt-theme-divider-primary hover:shadow-md transition-shadow">
+              <button className="flex-1 lmnt-theme-background-bg lmnt-theme-on-surface py-2 rounded-lg text-sm border-2 lmnt-theme-divider-primary hover:shadow-md transition-all font-semibold hover:border-bayer-secondary-400">
                 View History
               </button>
             </div>
