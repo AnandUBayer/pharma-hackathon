@@ -22,6 +22,7 @@ import {
   MessageCircle
 } from 'lucide-react'
 import VoiceChatbot from './VoiceChatbot'
+import FeedbackChat from './FeedbackChat'
 
 interface ActivityStatus {
   meetingReminder: boolean
@@ -55,6 +56,7 @@ const HomeView: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false)
   const [activePopup, setActivePopup] = useState<FeedbackOption | null>(null)
   const [showChatbot, setShowChatbot] = useState(false)
+  const [showFeedbackChat, setShowFeedbackChat] = useState(false)
 
   const feedbackOptions: FeedbackOption[] = [
     {
@@ -153,6 +155,10 @@ const HomeView: React.FC = () => {
   const closePopup = () => {
     setShowPopup(false)
     setTimeout(() => setActivePopup(null), 300)
+  }
+
+  const handleSubmitFeedback = () => {
+    setShowFeedbackChat(true)
   }
 
   const completedActivities = Object.values(activityStatus).filter(Boolean).length
@@ -319,10 +325,10 @@ const HomeView: React.FC = () => {
         </div>
       </div>
 
-      {/* AI Assistant Quick Access */}
+      {/* AI Assistant Quick Access - Primary Button Style */}
       <button
         onClick={() => setShowChatbot(true)}
-        className="w-full lmnt-theme-success-bg lmnt-theme-on-success rounded-2xl p-5 shadow-xl hover:shadow-2xl transition-all hover:scale-105 transform"
+        className="w-full bg-gradient-to-r from-bayer-secondary-500 to-bayer-secondary-600 text-white rounded-2xl p-5 shadow-xl hover:shadow-2xl transition-all hover:scale-105 transform hover:from-bayer-secondary-600 hover:to-bayer-secondary-700"
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -331,14 +337,14 @@ const HomeView: React.FC = () => {
             </div>
             <div className="text-left">
               <h3 className="font-bold text-lg">AI Call Assistant</h3>
-              <p className="text-sm lmnt-theme-on-success-inactive">Document your day with voice or text</p>
+              <p className="text-sm opacity-90">Document your day with voice or text</p>
             </div>
           </div>
           <Sparkles size={24} className="animate-pulse" />
         </div>
       </button>
 
-      {/* Gamified Activity Trackers with Enhanced Visuals */}
+      {/* Gamified Activity Trackers with Primary Button Styling */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="lmnt-theme-on-surface font-bold text-xl flex items-center gap-2">
@@ -354,10 +360,10 @@ const HomeView: React.FC = () => {
           {/* Meeting Reminder */}
           <button
             onClick={() => toggleActivity('meetingReminder')}
-            className={`relative rounded-2xl p-5 shadow-lg transition-all duration-300 transform ${
+            className={`relative rounded-2xl p-5 shadow-lg transition-all duration-300 transform hover:scale-105 ${
               activityStatus.meetingReminder
-                ? 'lmnt-theme-success-bg lmnt-theme-on-success scale-105 shadow-2xl'
-                : 'lmnt-theme-background-bg lmnt-theme-on-surface border-2 lmnt-theme-divider-primary hover:scale-105 hover:shadow-xl'
+                ? 'bg-gradient-to-br from-teal-400 to-cyan-500 text-white scale-105 shadow-2xl'
+                : 'bg-gradient-to-br from-bayer-secondary-400 to-bayer-secondary-500 text-white hover:from-bayer-secondary-500 hover:to-bayer-secondary-600 hover:shadow-xl'
             } ${pulseActivity === 'meetingReminder' ? 'animate-pulse-once' : ''}`}
           >
             {activityStatus.meetingReminder && (
@@ -367,10 +373,10 @@ const HomeView: React.FC = () => {
             )}
             <div className="flex flex-col items-center gap-3 text-center">
               <div className={`${activityStatus.meetingReminder ? 'animate-wiggle' : ''}`}>
-                <Calendar size={40} strokeWidth={activityStatus.meetingReminder ? 2.5 : 2} />
+                <Calendar size={40} strokeWidth={2.5} />
               </div>
               <span className="text-sm font-bold">Meeting Reminder</span>
-              <span className="text-xs opacity-70">Doctor visits scheduled</span>
+              <span className="text-xs opacity-90">Doctor visits scheduled</span>
               {activityStatus.meetingReminder && (
                 <div className="flex items-center gap-1 text-xs font-bold">
                   <Star size={12} className="fill-current" />
@@ -383,10 +389,10 @@ const HomeView: React.FC = () => {
           {/* Event Checklist */}
           <button
             onClick={() => toggleActivity('eventChecklist')}
-            className={`relative rounded-2xl p-5 shadow-lg transition-all duration-300 transform ${
+            className={`relative rounded-2xl p-5 shadow-lg transition-all duration-300 transform hover:scale-105 ${
               activityStatus.eventChecklist
-                ? 'lmnt-theme-success-bg lmnt-theme-on-success scale-105 shadow-2xl'
-                : 'lmnt-theme-background-bg lmnt-theme-on-surface border-2 lmnt-theme-divider-primary hover:scale-105 hover:shadow-xl'
+                ? 'bg-gradient-to-br from-teal-400 to-cyan-500 text-white scale-105 shadow-2xl'
+                : 'bg-gradient-to-br from-bayer-secondary-400 to-bayer-secondary-500 text-white hover:from-bayer-secondary-500 hover:to-bayer-secondary-600 hover:shadow-xl'
             } ${pulseActivity === 'eventChecklist' ? 'animate-pulse-once' : ''}`}
           >
             {activityStatus.eventChecklist && (
@@ -396,10 +402,10 @@ const HomeView: React.FC = () => {
             )}
             <div className="flex flex-col items-center gap-3 text-center">
               <div className={`${activityStatus.eventChecklist ? 'animate-wiggle' : ''}`}>
-                <CheckSquare size={40} strokeWidth={activityStatus.eventChecklist ? 2.5 : 2} />
+                <CheckSquare size={40} strokeWidth={2.5} />
               </div>
               <span className="text-sm font-bold">Event Checklist</span>
-              <span className="text-xs opacity-70">Materials ready</span>
+              <span className="text-xs opacity-90">Materials ready</span>
               {activityStatus.eventChecklist && (
                 <div className="flex items-center gap-1 text-xs font-bold">
                   <Star size={12} className="fill-current" />
@@ -412,10 +418,10 @@ const HomeView: React.FC = () => {
           {/* Weekly Team Meet */}
           <button
             onClick={() => toggleActivity('weeklyTeamMeet')}
-            className={`relative rounded-2xl p-5 shadow-lg transition-all duration-300 transform ${
+            className={`relative rounded-2xl p-5 shadow-lg transition-all duration-300 transform hover:scale-105 ${
               activityStatus.weeklyTeamMeet
-                ? 'lmnt-theme-success-bg lmnt-theme-on-success scale-105 shadow-2xl'
-                : 'lmnt-theme-background-bg lmnt-theme-on-surface border-2 lmnt-theme-divider-primary hover:scale-105 hover:shadow-xl'
+                ? 'bg-gradient-to-br from-teal-400 to-cyan-500 text-white scale-105 shadow-2xl'
+                : 'bg-gradient-to-br from-bayer-secondary-400 to-bayer-secondary-500 text-white hover:from-bayer-secondary-500 hover:to-bayer-secondary-600 hover:shadow-xl'
             } ${pulseActivity === 'weeklyTeamMeet' ? 'animate-pulse-once' : ''}`}
           >
             {activityStatus.weeklyTeamMeet && (
@@ -425,10 +431,10 @@ const HomeView: React.FC = () => {
             )}
             <div className="flex flex-col items-center gap-3 text-center">
               <div className={`${activityStatus.weeklyTeamMeet ? 'animate-wiggle' : ''}`}>
-                <Users size={40} strokeWidth={activityStatus.weeklyTeamMeet ? 2.5 : 2} />
+                <Users size={40} strokeWidth={2.5} />
               </div>
               <span className="text-sm font-bold">Weekly Team Meet</span>
-              <span className="text-xs opacity-70">Collaborate & sync</span>
+              <span className="text-xs opacity-90">Collaborate & sync</span>
               {activityStatus.weeklyTeamMeet && (
                 <div className="flex items-center gap-1 text-xs font-bold">
                   <Star size={12} className="fill-current" />
@@ -441,10 +447,10 @@ const HomeView: React.FC = () => {
           {/* Daily Updates */}
           <button
             onClick={() => toggleActivity('dailyUpdates')}
-            className={`relative rounded-2xl p-5 shadow-lg transition-all duration-300 transform ${
+            className={`relative rounded-2xl p-5 shadow-lg transition-all duration-300 transform hover:scale-105 ${
               activityStatus.dailyUpdates
-                ? 'lmnt-theme-success-bg lmnt-theme-on-success scale-105 shadow-2xl'
-                : 'lmnt-theme-background-bg lmnt-theme-on-surface border-2 lmnt-theme-divider-primary hover:scale-105 hover:shadow-xl'
+                ? 'bg-gradient-to-br from-teal-400 to-cyan-500 text-white scale-105 shadow-2xl'
+                : 'bg-gradient-to-br from-bayer-secondary-400 to-bayer-secondary-500 text-white hover:from-bayer-secondary-500 hover:to-bayer-secondary-600 hover:shadow-xl'
             } ${pulseActivity === 'dailyUpdates' ? 'animate-pulse-once' : ''}`}
           >
             {activityStatus.dailyUpdates && (
@@ -454,10 +460,10 @@ const HomeView: React.FC = () => {
             )}
             <div className="flex flex-col items-center gap-3 text-center">
               <div className={`${activityStatus.dailyUpdates ? 'animate-wiggle' : ''}`}>
-                <Send size={40} strokeWidth={activityStatus.dailyUpdates ? 2.5 : 2} />
+                <Send size={40} strokeWidth={2.5} />
               </div>
               <span className="text-sm font-bold">Daily Updates</span>
-              <span className="text-xs opacity-70">Report to manager</span>
+              <span className="text-xs opacity-90">Report to manager</span>
               {activityStatus.dailyUpdates && (
                 <div className="flex items-center gap-1 text-xs font-bold">
                   <Star size={12} className="fill-current" />
@@ -488,7 +494,7 @@ const HomeView: React.FC = () => {
             </div>
             <div className="text-center p-3 bg-white bg-opacity-10 rounded-xl">
               <p className="text-3xl font-bold">5</p>
-              <p className="text-xs mt-1 lmnt-theme-on-secondary-inactive">Prescriptions</p>
+              <p className="text-xs mt-1 lmnt-theme-on-secondary-inactive">Call Compliance</p>
             </div>
             <div className="text-center p-3 bg-white bg-opacity-10 rounded-xl">
               <p className="text-3xl font-bold">3</p>
@@ -498,7 +504,7 @@ const HomeView: React.FC = () => {
         </div>
       </div>
 
-      {/* Enhanced Feedback Options with Gradients */}
+      {/* Enhanced Feedback Options with Persistent Selected State */}
       <div className="space-y-4">
         <h3 className="lmnt-theme-on-surface font-bold text-xl flex items-center gap-2">
           <TrendingUp className="lmnt-theme-secondary animate-pulse" size={24} />
@@ -510,10 +516,10 @@ const HomeView: React.FC = () => {
             <button
               key={option.id}
               onClick={() => toggleFeedback(option)}
-              className={`relative rounded-2xl p-6 shadow-lg transition-all duration-300 transform ${
+              className={`relative rounded-2xl p-6 shadow-lg transition-all duration-300 transform hover:scale-105 ${
                 selectedFeedback.includes(option.id)
                   ? `bg-gradient-to-br ${option.gradient} text-white border-2 border-white scale-105 shadow-2xl`
-                  : 'lmnt-theme-background-bg lmnt-theme-on-surface border-2 lmnt-theme-divider-primary hover:scale-105 hover:shadow-xl'
+                  : 'bg-gradient-to-br from-bayer-secondary-400 to-bayer-secondary-500 text-white hover:from-bayer-secondary-500 hover:to-bayer-secondary-600 hover:shadow-xl'
               }`}
             >
               {selectedFeedback.includes(option.id) && (
@@ -566,24 +572,43 @@ const HomeView: React.FC = () => {
         </div>
       </div>
 
-      {/* Enhanced Submit Button */}
-      <button
-        disabled={selectedFeedback.length === 0 || rating === 0}
-        className={`w-full py-5 rounded-2xl font-bold shadow-xl transition-all duration-300 flex items-center justify-center gap-3 text-lg ${
-          selectedFeedback.length > 0 && rating > 0
-            ? 'bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white hover:shadow-2xl hover:scale-105 transform'
-            : 'lmnt-theme-surface-variant-bg lmnt-theme-on-surface opacity-50 cursor-not-allowed'
-        }`}
-      >
-        <Send size={24} />
-        <span>Submit Daily Feedback</span>
-        {selectedFeedback.length > 0 && rating > 0 && (
-          <Sparkles size={20} className="animate-pulse" />
-        )}
-      </button>
+      {/* PROMINENT Submit Button with Glow Effect */}
+      <div className="relative">
+        {/* Glow effect background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-bayer-secondary-400 via-bayer-secondary-500 to-bayer-secondary-600 rounded-3xl blur-xl opacity-50 animate-pulse" />
+        
+        <button
+          onClick={handleSubmitFeedback}
+          disabled={selectedFeedback.length === 0 || rating === 0}
+          className={`relative w-full py-6 rounded-3xl font-bold shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 text-xl ${
+            selectedFeedback.length > 0 && rating > 0
+              ? 'bg-gradient-to-r from-bayer-secondary-500 via-bayer-secondary-600 to-bayer-secondary-700 text-white hover:shadow-2xl hover:scale-105 transform hover:from-bayer-secondary-600 hover:via-bayer-secondary-700 hover:to-bayer-secondary-800 animate-bounce-slow'
+              : 'lmnt-theme-surface-variant-bg lmnt-theme-on-surface opacity-50 cursor-not-allowed'
+          }`}
+        >
+          <MessageCircle size={28} strokeWidth={2.5} />
+          <span>Chat with mySAM</span>
+          {selectedFeedback.length > 0 && rating > 0 && (
+            <Sparkles size={24} className="animate-pulse" />
+          )}
+        </button>
+      </div>
 
       {/* Voice Chatbot */}
       {showChatbot && <VoiceChatbot onClose={() => setShowChatbot(false)} />}
+
+      {/* Feedback Chat */}
+      {showFeedbackChat && (
+        <FeedbackChat
+          onClose={() => setShowFeedbackChat(false)}
+          feedbackData={{
+            selectedFeedback,
+            rating,
+            activityStatus,
+            completionPercentage
+          }}
+        />
+      )}
     </div>
   )
 }
